@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+
 @RestController
 public class AccountRestController {
     private BankAccountrepository bankAccountRepository;
@@ -25,6 +27,7 @@ public class AccountRestController {
     }
     @PostMapping("/bankAccounts")
     public BankAcoount save(@RequestBody BankAcoount bankAccount) {
+        if (bankAccount.getId() == null) bankAccount.setId(UUID.randomUUID().toString());
         return bankAccountRepository.save(bankAccount);
     }
     @PutMapping("/bankAccounts/{id}")
