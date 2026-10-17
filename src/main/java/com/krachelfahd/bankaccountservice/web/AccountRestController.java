@@ -1,7 +1,6 @@
 package com.krachelfahd.bankaccountservice.web;
 
 import com.krachelfahd.bankaccountservice.dto.BankAccountDTORequest;
-import com.krachelfahd.bankaccountservice.dto.BankAccountDTOResponse;
 import com.krachelfahd.bankaccountservice.entities.BankAcoount;
 import com.krachelfahd.bankaccountservice.repositories.BankAccountrepository;
 import com.krachelfahd.bankaccountservice.services.AccountServices;
@@ -10,13 +9,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 public class AccountRestController {
     @Autowired
     private AccountServices bankAccountServices;
-    private BankAccountrepository bankAccountRepository;
+    private final BankAccountrepository bankAccountRepository;
 
 
     public AccountRestController(BankAccountrepository bankAccountRepository) {
@@ -32,7 +30,7 @@ public class AccountRestController {
         return bankAccountRepository.findById(id).orElseThrow(() -> new RuntimeException(String.format("Account %s not found",id)));
     }
     @PostMapping("/bankAccounts")
-    public BankAccountDTOResponse save(@RequestBody BankAccountDTORequest bankAccountDTO) {
+    public BankAcoount save(@RequestBody BankAccountDTORequest bankAccountDTO) {
 
         return bankAccountServices.createBankAcoount(bankAccountDTO);
     }
